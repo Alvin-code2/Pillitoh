@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#32165f">
+<meta name="description" content="Pillito — Clinical Licensing, CPD and professional support services for healthcare professionals in Kenya.">
+<title>Pillito — Clinical Licensing &amp; CPD Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --deep:#32165f; --purple:#5b2b91; --violet:#7a4bc2; --gold:#c59a3a;
+  --gold-soft:#f5e8bd; --cream:#fbf9fd; --ink:#21182d; --muted:#70667d;
+  --line:rgba(50,22,95,.12); --white:#fff; --green:#16865b;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:110px;-webkit-text-size-adjust:100%}
+body{margin:0;background:#eeeaf3;color:var(--ink);font-family:"DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,a{font:inherit}
+a{text-decoration:none}
+button{cursor:pointer}
+/* overflow:clip (not hidden) so the sticky header keeps working */
+.site{width:100%;max-width:620px;margin:auto;background:var(--cream);min-height:100vh;overflow:hidden;overflow:clip;box-shadow:0 0 35px rgba(38,17,65,.08)}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(50,22,95,.97);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:#fff;padding-top:env(safe-area-inset-top,0px)}
+.brand{display:flex;align-items:center;justify-content:space-between;padding:15px 20px 10px}
+.logo{font-family:"Playfair Display",Georgia,serif;font-size:25px;font-weight:700;letter-spacing:.08em}
+.logo small{display:block;font:600 8px "DM Sans",sans-serif;letter-spacing:.22em;color:#dfc989;margin-top:-2px}
+.status{font-size:11px;color:#eadfbf;display:flex;align-items:center;gap:6px}
+.status i{width:7px;height:7px;border-radius:50%;background:#63d69d;display:inline-block}
+.tabs{display:flex;gap:5px;overflow-x:auto;padding:3px 12px 11px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{border:0;background:transparent;color:rgba(255,255,255,.68);padding:8px 13px;border-radius:999px;white-space:nowrap;font-weight:600;font-size:12px}
+.tabs button.active{background:var(--gold);color:var(--deep)}
+
+main{padding-bottom:35px}
+.panel{display:none}
+.panel.active{display:block;animation:up .22s ease}
+@keyframes up{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.hero{position:relative;padding:34px 22px 25px;background:
+ radial-gradient(circle at 90% 5%,rgba(197,154,58,.23),transparent 28%),
+ linear-gradient(145deg,#32165f,#5b2b91 70%,#7045ae);color:#fff;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-65px;bottom:-75px;width:180px;height:180px;border:1px solid rgba(255,255,255,.14);border-radius:50%;pointer-events:none}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;color:#f0d99a;text-transform:uppercase;letter-spacing:.14em;font-size:10px;font-weight:700;margin-bottom:14px}
+.eyebrow:before{content:"";width:23px;height:1px;background:var(--gold)}
+.hero h1{font:700 38px/1.05 "Playfair Display",Georgia,serif;margin:0 0 10px;max-width:500px}
+.hero h1 span{color:#e3c87e}
+.hero p{font-size:14px;line-height:1.65;color:rgba(255,255,255,.82);margin:0 0 20px;max-width:500px}
+.actions{display:flex;gap:9px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:10px;padding:12px 15px;font-size:12px;font-weight:700;border:1px solid transparent}
+.btn-gold{background:var(--gold);color:var(--deep)}
+.btn-light{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.25)}
+
+.trust{display:grid;grid-template-columns:repeat(3,1fr);background:#fff;border-bottom:1px solid var(--line)}
+.trust div{padding:15px 8px;text-align:center;border-right:1px solid var(--line)}
+.trust div:last-child{border:0}
+.trust strong{display:block;color:var(--deep);font-size:12px}
+.trust span{font-size:9px;color:var(--muted)}
+
+.wrap{padding:26px 20px}
+.section-head{margin-bottom:15px}
+.kicker{color:var(--violet);font-size:10px;text-transform:uppercase;letter-spacing:.14em;font-weight:700}
+.section-head h2{font:700 24px/1.2 "Playfair Display",Georgia,serif;color:var(--deep);margin:4px 0}
+.section-head p{font-size:12px;line-height:1.55;color:var(--muted);margin:0}
+
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.quick{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}
+.quick .icon{width:34px;height:34px;border-radius:10px;background:#f0e8fb;color:var(--purple);display:grid;place-items:center;font-weight:700;font-size:12px;margin-bottom:10px}
+.quick strong{display:block;font-size:13px;color:var(--deep);margin-bottom:4px}
+.quick span{font-size:10px;line-height:1.45;color:var(--muted)}
+
+.feature{margin-top:12px;border-radius:16px;padding:18px;background:linear-gradient(135deg,#f2eafa,#fff);border:1px solid var(--line)}
+.feature strong{color:var(--deep);font-size:13px}
+.feature p{font-size:11px;line-height:1.55;color:var(--muted);margin:6px 0 0}
+
+.services{display:grid;gap:10px}
+.service{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.service-head{width:100%;border:0;background:#fff;display:flex;align-items:center;text-align:left;padding:16px;color:inherit}
+.service-icon{width:37px;height:37px;flex:0 0 37px;border-radius:11px;background:#f0e8fb;color:var(--purple);display:grid;place-items:center;font-weight:700;margin-right:12px}
+.service-title{flex:1;font-weight:700;color:var(--deep);font-size:13px}
+.service-title small{display:block;color:var(--muted);font-size:10px;font-weight:400;margin-top:3px}
+.arrow{color:var(--violet);transition:transform .2s;font-size:18px}
+.service.open .arrow{transform:rotate(90deg)}
+.service-body{display:none;padding:0 16px 16px 65px}
+.service.open .service-body{display:block}
+.service-body p{font-size:11px;line-height:1.55;color:var(--muted);margin:0 0 10px}
+.service-body .mini{font-size:9px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;color:var(--violet);margin:12px 0 5px}
+.service-body ul{margin:0;padding-left:17px;color:var(--ink)}
+.service-body li{font-size:10px;padding:2px 0}
+
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{padding:8px 11px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--purple);font-size:10px;font-weight:600}
+
+.rate-card{background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden}
+.rate{display:flex;align-items:center;gap:12px;padding:14px 15px;border-bottom:1px solid var(--line)}
+.rate:last-child{border-bottom:0}
+.rate .rtext{flex:1;font-size:11px;color:var(--ink);line-height:1.35}
+.rate .price{font-weight:700;color:var(--deep);font-size:12px;text-align:right;white-space:nowrap}
+.note{font-size:10px;line-height:1.5;color:var(--muted);margin:12px 2px 0}
+
+.cpd{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden}
+.cpd-row{display:flex;justify-content:space-between;gap:10px;padding:10px 13px;border-bottom:1px solid var(--line);font-size:10px}
+.cpd-row:last-child{border:0}
+.cpd-row span:last-child{font-weight:700;color:var(--purple);white-space:nowrap}
+
+.about-box{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px}
+.about-box p{font-size:12px;line-height:1.65;color:var(--muted);margin:0 0 12px}
+.about-box p:last-child{margin:0}
+.values{display:grid;gap:8px;margin-top:14px}
+.value{display:flex;gap:10px;align-items:center;font-size:11px;font-weight:600;color:var(--deep)}
+.value b{width:25px;height:25px;border-radius:8px;background:var(--gold-soft);display:grid;place-items:center;color:var(--deep);font-size:10px}
+
+.contact{margin:0 20px;border-radius:18px;padding:25px 19px;background:linear-gradient(145deg,#32165f,#5b2b91);color:#fff;text-align:center;position:relative;overflow:hidden}
+.contact:before{content:"";position:absolute;width:180px;height:180px;border:1px solid rgba(255,255,255,.12);border-radius:50%;right:-75px;top:-80px;pointer-events:none}
+.contact h2{font:700 26px "Playfair Display",Georgia,serif;margin:0 0 7px}
+.contact p{font-size:11px;color:rgba(255,255,255,.72);margin:0 0 17px}
+.contact-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.contact-actions a{padding:12px 7px;border-radius:10px;background:#fff;color:var(--deep);font-size:11px;font-weight:700}
+.contact .email{display:block;margin-top:14px;color:#e8d18b;font-size:11px;font-weight:600;word-break:break-all}
+
+footer{text-align:center;padding:22px 20px calc(4px + env(safe-area-inset-bottom,0px));color:#8a8192;font-size:9px}
+footer strong{color:var(--purple)}
+
+.founder-card{margin-top:18px;border:1px solid var(--line);border-radius:22px;background:#fff;padding:16px;display:flex;gap:15px;align-items:center;box-shadow:0 10px 25px rgba(50,22,95,.06)}
+.founder-photo{width:108px;height:132px;flex:0 0 108px;object-fit:cover;object-position:center top;border-radius:17px;background:#111}
+.monogram{display:none;width:108px;height:132px;flex:0 0 108px;border-radius:17px;background:linear-gradient(145deg,#32165f,#5b2b91);color:#e3c87e;font:700 34px "Playfair Display",Georgia,serif;align-items:center;justify-content:center;letter-spacing:.06em}
+.founder-copy .kicker{margin-bottom:5px}
+.founder-copy h3{margin:0 0 5px;font:700 21px/1.15 "Playfair Display",Georgia,serif;color:var(--deep)}
+.founder-copy p{margin:0;color:var(--muted);font-size:12px;line-height:1.6}
+
+@media(max-width:380px){
+ .hero h1{font-size:33px}
+ .quick-grid{grid-template-columns:1fr}
+ .trust strong{font-size:11px}
+ .founder-card{padding:13px}
+ .founder-photo,.monogram{width:92px;height:116px;flex-basis:92px}
+ .founder-copy h3{font-size:19px}
+ .service-body{padding-left:16px}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}
+ .panel.active{animation:none}
+}
+</style>
+</head>
+
+<body>
+<div class="site">
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">PILLITO<small>CLINICAL SUPPORT</small></div>
+    <div class="status"><i></i> Serving Kenya</div>
+  </div>
+  <nav class="tabs" id="tabs" aria-label="Sections">
+    <button type="button" class="active" data-tab="home">Home</button>
+    <button type="button" data-tab="about">About</button>
+    <button type="button" data-tab="services">Services</button>
+    <button type="button" data-tab="cadres">Cadres</button>
+    <button type="button" data-tab="rates">Rates</button>
+    <button type="button" data-tab="contact">Contact</button>
+  </nav>
+</header>
+
+<main>
+
+<section class="panel active" id="home">
+  <div class="hero">
+    <div class="eyebrow">Clinical Licensing &amp; CPD</div>
+    <h1>Keep your <span>professional license</span> moving.</h1>
+    <p>Licensing support, CPD processing, KRS services, dispatch, referrals and ATS-ready CV revamping — made simpler for healthcare professionals across Kenya.</p>
+    <div class="actions">
+      <a class="btn btn-gold" href="https://wa.me/254757461630?text=Hello%20Pillito%2C%20I%27d%20like%20to%20enquire%20about%20your%20services." target="_blank" rel="noopener noreferrer">WhatsApp Pillito</a>
+      <button type="button" class="btn btn-light" data-go="services">Explore Services</button>
+    </div>
+  </div>
+
+  <div class="trust">
+    <div><strong>End-to-end</strong><span>Processing support</span></div>
+    <div><strong>Kenya-wide</strong><span>For listed cadres</span></div>
+    <div><strong>Updates</strong><span>Track your request</span></div>
+  </div>
+
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">What we help with</div>
+      <h2>Professional support, without the runaround.</h2>
+      <p>Tap into the service you need and get the process explained clearly.</p>
+    </div>
+
+    <div class="quick-grid">
+      <div class="quick"><div class="icon">✓</div><strong>License Renewal</strong><span>Processing support for the cadres we serve.</span></div>
+      <div class="quick"><div class="icon">CPD</div><strong>CPD Points</strong><span>Point processing with practical reflection ranges.</span></div>
+      <div class="quick"><div class="icon">K</div><strong>KRS Services</strong><span>Regulatory processing handled on your behalf.</span></div>
+      <div class="quick"><div class="icon">CV</div><strong>ATS CVs</strong><span>Professional CV revamping for applications.</span></div>
+    </div>
+
+    <div class="feature">
+      <strong>Need your license picked up?</strong>
+      <p>Pillito can collect your license on your behalf and arrange delivery. Pickup and courier charges apply.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="about">
+  <div class="wrap">
+    <div class="section-head"><div class="kicker">About Pillito</div><h2>Healthcare professionals deserve a simpler process.</h2></div>
+    <div class="about-box">
+      <p>Pillito helps nurses, medical officers, clinical officers, pharmacists, physiotherapists, dental officers and other licensed healthcare professionals navigate professional licensing and related support services in Kenya.</p>
+      <p>From CPD points to license pickup, our goal is straightforward: make the process easier to understand, easier to track and more convenient.</p>
+      <div class="values">
+        <div class="value"><b>01</b> Straightforward communication</div>
+        <div class="value"><b>02</b> Status updates along the way</div>
+        <div class="value"><b>03</b> Convenience for busy clinicians</div>
+        <div class="value"><b>04</b> Professional application support</div>
+      </div>
+    </div>
+
+    <div class="founder-card">
+      <!-- PHOTO: replace PHOTO_DATA_URI_HERE with the src="..." value from your original file (the long data:image/... string). If it fails to load, the monogram shows instead. -->
+      <img class="founder-photo" id="founderPhoto" src="PHOTO_DATA_URI_HERE" alt="Alvin Muchera, Pillito">
+      <div class="monogram" id="founderMono" aria-hidden="true">AM</div>
+      <div class="founder-copy">
+        <div class="kicker">Behind Pillito</div>
+        <h3>Alvin Muchera</h3>
+        <p>Clinical support and professional licensing services for healthcare professionals.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="panel" id="services">
+  <div class="wrap">
+    <div class="section-head"><div class="kicker">Our services</div><h2>What can Pillito handle?</h2><p>Tap a service to see more.</p></div>
+    <div class="services">
+
+      <div class="service">
+        <button type="button" class="service-head" aria-expanded="false"><div class="service-icon">01</div><div class="service-title">License Renewal<small>Fast-track processing support</small></div><div class="arrow" aria-hidden="true">›</div></button>
+        <div class="service-body"><p>Renewal processing typically takes around 1–7 days depending on cadre, verification and regulator workload.</p><div class="mini">Cadres</div><p>Nurses, MOs, Consultants, Consultant Physicians, Clinical Officers, Clinical Officer Anaesthetists, COHO, Pharmacists, Pharm Techs, Physiotherapists, Dental Officers, HDN, Morticians, HDCM, Orthopedic &amp; Trauma Medicine.</p></div>
+      </div>
+
+      <div class="service">
+        <button type="button" class="service-head" aria-expanded="false"><div class="service-icon">02</div><div class="service-title">CPD Points<small>Processing &amp; reflection support</small></div><div class="arrow" aria-hidden="true">›</div></button>
+        <div class="service-body"><p>CPD point packages processed according to the relevant board requirements.</p><div class="mini">Practical reflection ranges</div>
+          <ul>
+            <li>Nurses / Midwives (NCK): ~48 hrs</li>
+            <li>Medical Officers (KMPDC): same day–3 days</li>
+            <li>Consultants / Specialists: immediate–3 days</li>
+            <li>Consultant Physicians: immediate–3 days</li>
+            <li>Clinical Officers / CO Anaesthetists: 1–7 days</li>
+            <li>COHO: 1–7 days</li>
+            <li>Pharmacists / Pharm Techs, token-based: same day–7 days</li>
+            <li>Pharmacists / Pharm Techs, self-reported: up to 2 months</li>
+            <li>Physiotherapists: 2–14 days</li>
+            <li>Dental Officers / Dentists: immediate–3 days</li>
+            <li>HDN: ~48 hrs</li>
+            <li>Morticians / HDCM / Orthopedic &amp; Trauma: 2–14 days</li>
+          </ul>
+          <p style="margin-top:10px;font-size:9px">Ranges are practical estimates, not guaranteed regulator SLAs. Delayed verification, incorrect details, system downtime or token/submission issues can affect reflection time.</p>
+        </div>
+      </div>
+
+      <div class="service">
+        <button type="button" class="service-head" aria-expanded="false"><div class="service-icon">03</div><div class="service-title">KRS Services<small>Regulatory processing support</small></div><div class="arrow" aria-hidden="true">›</div></button>
+        <div class="service-body"><p>End-to-end KRS processing handled on your behalf, with status updates along the way.</p></div>
+      </div>
+
+      <div class="service">
+        <button type="button" class="service-head" aria-expanded="false"><div class="service-icon">04</div><div class="service-title">License Pickup &amp; Dispatch<small>We collect. You receive.</small></div><div class="arrow" aria-hidden="true">›</div></button>
+        <div class="service-body"><p>Your license can be collected on your behalf and delivered to you. Courier charges apply depending on destination.</p></div>
+      </div>
+
+      <div class="service">
+        <button type="button" class="service-head" aria-expanded="false"><div class="service-icon">05</div><div class="service-title">Referrals<small>Opportunities &amp; professional connections</small></div><div class="arrow" aria-hidden="true">›</div></button>
+        <div class="service-body"><p>Connections to selected placements and opportunities across the cadres we serve. Terms are discussed per referral.</p></div>
+      </div>
+
+      <div class="service">
+        <button type="button" class="service-head" aria-expanded="false"><div class="service-icon">06</div><div class="service-title">CV Revamping (ATS)<small>Built for automated screening</small></div><div class="arrow" aria-hidden="true">›</div></button>
+        <div class="service-body"><p>Professional CV formatting and content improvement designed to be compatible with applicant tracking systems and easier for recruiters to scan.</p></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="cadres">
+  <div class="wrap">
+    <div class="section-head"><div class="kicker">Who we serve</div><h2>Cadres supported by Pillito.</h2><p>Services vary by cadre and regulator.</p></div>
+    <div class="chips">
+      <span class="chip">Nurses</span><span class="chip">Medical Officers</span><span class="chip">Consultants</span><span class="chip">Consultant Physicians</span><span class="chip">Clinical Officers</span><span class="chip">Clinical Officer Anaesthetists</span><span class="chip">COHO</span><span class="chip">Pharmacists</span><span class="chip">Pharm Techs</span><span class="chip">Physiotherapists</span><span class="chip">Dental Officers</span><span class="chip">HDN</span><span class="chip">Morticians</span><span class="chip">HDCM</span><span class="chip">Orthopedic &amp; Trauma Medicine</span>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="rates">
+  <div class="wrap">
+    <div class="section-head"><div class="kicker">Current rates</div><h2>Simple pricing.</h2><p>Final charges can depend on the exact service and processing requirements.</p></div>
+    <div class="rate-card">
+      <div class="rate"><div class="rtext">Nurses</div><div class="price">KES 480</div></div>
+      <div class="rate"><div class="rtext">COHO, Clinical Officers, Pharm Techs</div><div class="price">1,400–2,900</div></div>
+      <div class="rate"><div class="rtext">Pharmacists, Physiotherapists, Dental Officers, HDN, Morticians</div><div class="price">2,900–4,800</div></div>
+      <div class="rate"><div class="rtext">MOs, CO Anaesthetists, Consultants, Consultant Physicians, Orthopedic &amp; Trauma, HDCM</div><div class="price">4,800–9,600</div></div>
+      <div class="rate"><div class="rtext">CPD Points — Pharmacists / Pharm Techs, 30 pts</div><div class="price">2,900–5,800</div></div>
+      <div class="rate"><div class="rtext">License Pickup &amp; Dispatch</div><div class="price">500–1,400 + courier</div></div>
+      <div class="rate"><div class="rtext">CV Revamping (ATS)</div><div class="price">1,400–3,400</div></div>
+      <div class="rate"><div class="rtext">Referrals</div><div class="price">By arrangement</div></div>
+    </div>
+    <p class="note">All amounts are in Kenya Shillings (KES). Contact Pillito before payment to confirm the applicable rate and current processing requirements.</p>
+
+    <div class="section-head" style="margin-top:28px"><div class="kicker">CPD timing</div><h2>Typical reflection ranges</h2></div>
+    <div class="cpd">
+      <div class="cpd-row"><span>Nurses / Midwives (NCK) / HDN</span><span>~48 hrs</span></div>
+      <div class="cpd-row"><span>MOs / Consultants / Physicians / Dental</span><span>Same day–3 days</span></div>
+      <div class="cpd-row"><span>Clinical Officers / CO Anaesthetists / COHO</span><span>1–7 days</span></div>
+      <div class="cpd-row"><span>Pharmacists / Pharm Techs — token</span><span>Same day–7 days</span></div>
+      <div class="cpd-row"><span>Pharmacists / Pharm Techs — self-reported</span><span>Up to 2 months</span></div>
+      <div class="cpd-row"><span>Physiotherapists / Morticians / HDCM / Orthopedic</span><span>2–14 days</span></div>
+    </div>
+    <p class="note">These are practical processing ranges, not guaranteed regulator SLAs.</p>
+  </div>
+</section>
+
+<section class="panel" id="contact">
+  <div class="wrap">
+    <div class="section-head"><div class="kicker">Let's get it sorted</div><h2>Talk to Pillito.</h2><p>Tell us your cadre and the service you need.</p></div>
+  </div>
+  <div class="contact">
+    <h2>Need assistance?</h2>
+    <p>Call or WhatsApp Pillito and we'll guide you through the next step.</p>
+    <div class="contact-actions">
+      <a href="tel:+254757461630">Call 0757 461 630</a>
+      <a href="https://wa.me/254757461630?text=Hello%20Pillito%2C%20I%27d%20like%20to%20enquire%20about%20your%20services." target="_blank" rel="noopener noreferrer">WhatsApp</a>
+    </div>
+    <a class="email" href="mailto:alvinconsults@gmail.com">alvinconsults@gmail.com</a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong>PILLITO</strong> · Clinical Licensing &amp; CPD Services<br>
+  Professional support for healthcare professionals in Kenya.
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var tabs=document.querySelectorAll(".tabs button");
+  var panels=document.querySelectorAll(".panel");
+
+  function showTab(id){
+    var found=false;
+    panels.forEach(function(p){ if(p.id===id) found=true; });
+    if(!found) return;
+    tabs.forEach(function(b){
+      var on=b.dataset.tab===id;
+      b.classList.toggle("active",on);
+      if(on){ b.setAttribute("aria-current","page"); try{b.scrollIntoView({inline:"center",block:"nearest"});}catch(e){} }
+      else b.removeAttribute("aria-current");
+    });
+    panels.forEach(function(p){ p.classList.toggle("active",p.id===id); });
+    window.scrollTo(0,0);
+  }
+  tabs.forEach(function(btn){ btn.addEventListener("click",function(){ showTab(btn.dataset.tab); }); });
+  document.querySelectorAll("[data-go]").forEach(function(btn){ btn.addEventListener("click",function(){ showTab(btn.dataset.go); }); });
+
+  document.querySelectorAll(".service-head").forEach(function(btn){
+    btn.addEventListener("click",function(){
+      var card=btn.closest(".service");
+      var willOpen=!card.classList.contains("open");
+      document.querySelectorAll(".service.open").forEach(function(other){
+        other.classList.remove("open");
+        other.querySelector(".service-head").setAttribute("aria-expanded","false");
+      });
+      if(willOpen){ card.classList.add("open"); btn.setAttribute("aria-expanded","true"); }
+    });
+  });
+
+  // Founder photo fallback: show monogram if the image fails to load
+  var photo=document.getElementById("founderPhoto");
+  var mono=document.getElementById("founderMono");
+  function useMono(){ photo.style.display="none"; mono.style.display="flex"; }
+  photo.addEventListener("error",useMono);
+  if(photo.complete && photo.naturalWidth===0) useMono();
+})();
+</script>
+</body>
+</html>
